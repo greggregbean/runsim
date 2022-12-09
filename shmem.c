@@ -1,6 +1,3 @@
-// проверка на кол-во аргументов
-// конец на ctrl d
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -63,6 +60,10 @@ void run_command (const char* command, int* cmds_in_run) {
 }
 
 int main (int argc, char* argv []) {
+    if(argc == 0) {
+        printf("No args in command line. \n");
+        exit(-1);
+    }
     int N = str_to_num(argv[1]);
     printf("N = %d. \n", N);
  
