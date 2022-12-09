@@ -20,8 +20,7 @@ int str_to_num(char* str) {
     return num;
 }
 
-void my_handler(int sig)
-{
+void my_handler(int sig) {
     if (sig == SIGCHLD) {
         cmds_in_run--;
     }
@@ -73,12 +72,14 @@ int main (int argc, char* argv []) {
     char command [COMMAND_SIZE] = {'\0'};
 
     while(1) {
-        gets(command);
-        fflush(stdin);
+        if (read(STDIN_FILENO, command, COMMAND_SIZE) == 0) {
+            exit(0);
+        }
+        command[strlen(command) - 1] = '\0';
 
-        if(strcmp(command, "$") == 0) break;
+        printf("Command: \"%s\". \n", command);
 
-        else if(cmds_in_run == N) {
+        if(cmds_in_run == N) {
             printf("Too many processes are being run! Try later. \n");
             continue;
         } 
@@ -87,6 +88,7 @@ int main (int argc, char* argv []) {
             printf("Commands in run = %d. \n", cmds_in_run);
             run_command(command);
         }
+        memset(command, '\0', COMMAND_SIZE);
     }
 }
 
