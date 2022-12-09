@@ -1,3 +1,6 @@
+// проверка на кол-во аргументов
+// конец на ctrl d
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
